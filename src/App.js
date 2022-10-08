@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import "./App.scss";
+import Advice from "./components/advice/Advice";
+
+const api_url = "https://api.adviceslip.com/advice";
 
 function App() {
+  const [advice, setAdvice] = useState({});
+
+  useEffect(() => {
+    fetchAdvice();
+  }, []);
+
+  function fetchAdvice() {
+    axios.get(api_url).then((response) => {
+      setAdvice(response.data.slip);
+    });
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Advice
+        advice={advice}
+        onFetchAdvice={fetchAdvice}
+        nextAdviceInterval={2000} // There's a 2sec cache on the api, if another request is made in less than 2sec it'll return the same advice
+      />
     </div>
   );
 }

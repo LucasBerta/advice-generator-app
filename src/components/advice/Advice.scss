@@ -1,0 +1,96 @@
+@import "../../assets/style/mixins.scss";
+@import "../../assets/style/variables.scss";
+
+.advice-container {
+  position: relative;
+  @include flexCenter;
+  flex-direction: column;
+  width: 53rem;
+  padding: 4rem;
+  border-radius: 2rem;
+  background-color: $darkGrayishBlue;
+  box-shadow: 0 3rem 7rem -4rem #111;
+
+  @include screenMd {
+    width: 34rem;
+    padding: 4rem 2rem;
+  }
+
+  > *:not(:last-child) {
+    margin-bottom: 3.5rem;
+  }
+}
+
+.advice {
+  &--number {
+    color: $accent;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 0.5rem;
+  }
+
+  &--message {
+    color: $primary;
+    font-weight: 700;
+    font-size: $fontSizeStd;
+    text-align: center;
+  }
+
+  &--divider {
+    height: 2rem;
+    width: 100%;
+    background: url("../../assets/images/pattern-divider-desktop.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+
+    @include screenMd {
+      background: url("../../assets/images/pattern-divider-mobile.svg");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+
+  &--dice {
+    position: absolute;
+    bottom: -3.2rem;
+    @include flexCenter;
+    width: 6.4rem;
+    height: 6.4rem;
+    background-color: $accent;
+    border-radius: 50%;
+    cursor: pointer;
+
+    transition: all 0.2s ease-in-out;
+
+    &,
+    &:focus,
+    &:active,
+    &:visited {
+      border: none;
+      outline: none;
+    }
+
+    &:hover:not(:disabled) {
+      box-shadow: 0 0 3rem 0 $accent;
+    }
+
+    &:disabled {
+      opacity: 0.8;
+      cursor: context-menu;
+
+      > img {
+        animation: rollDice 0.5s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+@keyframes rollDice {
+  0% {
+    transform: rotateZ(0);
+  }
+
+  100% {
+    transform: rotateZ(90deg);
+  }
+}

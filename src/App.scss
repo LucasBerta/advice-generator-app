@@ -1,0 +1,10 @@
+@import "./assets/style/mixins.scss";
+@import "./assets/style/variables.scss";
+
+.app {
+  @include flexCenter;
+  width: 100%;
+  height: 100vh;
+  background-color: $darkBlue;
+  overflow: hidden;
+}
